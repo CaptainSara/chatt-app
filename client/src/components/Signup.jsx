@@ -2,7 +2,7 @@ import React from 'react'
 import { FormControl, FormLabel, VStack, Input, InputGroup, InputRightElement, Button, useToast } from '@chakra-ui/react'
 import { useState } from 'react'
 import axios from 'axios'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 
 export default function Signup() {
@@ -10,7 +10,7 @@ export default function Signup() {
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   const toast = useToast()
-  const history = useHistory();
+  const navigateTo = useNavigate();
 
   const [name, setName] = useState()
   const [email, setEmail] = useState()
@@ -70,7 +70,7 @@ export default function Signup() {
       })
       localStorage.setItem("userInfo", JSON.stringify(data))
       setPicLoading(false);
-      history.push("/chats");
+      navigateTo.push("/chats");
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -111,6 +111,7 @@ export default function Signup() {
         .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString())
+          console.log(data.url.toString())
           setPicLoading(false)
         })
         .catch((err) => {
