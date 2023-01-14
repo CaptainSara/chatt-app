@@ -43,7 +43,7 @@ export default function Login() {
         config
       );
 
-      // console.log(JSON.stringify(data));
+       console.log(JSON.stringify(data));
       toast({
         title: "Login Successful",
         status: "success",
@@ -106,17 +106,7 @@ export default function Login() {
         Login
       </Button>
 
-      <Button
-        variant='solid'
-        colorScheme='red'
-        width='100%'
-        onClick={ () => {
-          setEmail('guest@example.com')
-          setPassword('123456')
-        }}
-      >
-        Get Guest USer Credentials
-      </Button>
+      
     </VStack>
   )
 }

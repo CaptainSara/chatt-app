@@ -8,7 +8,8 @@ const { notFound, errorHandler } = require('./middleware/errorMiddelware')
 const path = require('path')
 
 const app = express()
-dotenv.config()
+require("./parseEnv.js");
+//dotenv.config()
 connectDB()
 
 app.use(express.json()) //Accept the JSON data fom fronend
