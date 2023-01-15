@@ -32,7 +32,7 @@ import NotificationBadge from "react";
 import { Effect } from "react";
 import { getSender } from "../config/ChatLogics";
 import UserListItem from "./UserListItem"
-import { ChatState } from "../context/ChatProvider";
+import { ChatState } from "./ChatProvider";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");

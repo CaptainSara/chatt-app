@@ -7,7 +7,7 @@ import { getSender } from "../config/ChatLogics";
 import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./GroupChatModal";
 import { Button } from "@chakra-ui/react";
-import { ChatState } from "../context/ChatProvider";
+import { ChatState } from "./ChatProvider";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();

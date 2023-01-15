@@ -15,7 +15,7 @@ import Lottie from "react";
 
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./UpdateGroupChatModal";
-import { ChatState } from "../context/ChatProvider";
+import { ChatState } from "./ChatProvider";
 const ENDPOINT = "http://localhost:5000"; 
 var socket, selectedChatCompare;
 
