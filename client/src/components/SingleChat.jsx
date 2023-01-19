@@ -9,13 +9,14 @@ import axios from "axios";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import ProfileModal from "./ProfileModal";
 import ScrollableChat from "./ScrollableChat";
+import {useContext} from "react"
 //import Lottie from "react-lottie";
 import Lottie from "react";
 /* import animationData from "../animations/typing.json"; */
 
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./UpdateGroupChatModal";
-import { ChatState } from "./ChatProvider";
+import { ChatContext } from "./ChatProvider";
 const ENDPOINT = "http://localhost:5000"; 
 var socket, selectedChatCompare;
 
@@ -37,7 +38,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     },
   };
   const { selectedChat, setSelectedChat, user, notification, setNotification } =
-    ChatState();
+    useContext(ChatContext)
 
   const fetchMessages = async () => {
     if (!selectedChat) return;

@@ -2,7 +2,7 @@ import React from 'react'
 import { FormControl, FormLabel, VStack, Input, InputGroup, InputRightElement, Button, useToast } from '@chakra-ui/react'
 import { useState } from 'react'
 import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
 
 export default function Signup() {
@@ -10,7 +10,7 @@ export default function Signup() {
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   const toast = useToast()
-  const navigateTo = useNavigate();
+  const navigateTo = useHistory();
 
   const [name, setName] = useState()
   const [email, setEmail] = useState()

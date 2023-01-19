@@ -19,7 +19,7 @@ import {
 import { Tooltip } from "@chakra-ui/tooltip";
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Avatar } from "@chakra-ui/avatar";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useToast } from "@chakra-ui/toast";
@@ -32,7 +32,8 @@ import NotificationBadge from "react";
 import { Effect } from "react";
 import { getSender } from "../config/ChatLogics";
 import UserListItem from "./UserListItem"
-import { ChatState } from "./ChatProvider";
+import {useContext} from "react"
+import { ChatContext } from "./ChatProvider";
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
@@ -47,11 +48,11 @@ function SideDrawer() {
     setNotification,
     chats,
     setChats,
-  } = ChatState();
+  } = useContext(ChatContext)
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const navigateTo = useNavigate();
+  const navigateTo = useHistory();
 
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");

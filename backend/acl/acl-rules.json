@@ -1,0 +1,31 @@
+{
+  "user": {
+    "users": {
+      "get": true
+    },
+    "login": {
+      "get": true,
+      "delete": true
+    }
+  },
+  "isAdmin": {
+    "users": {
+      "get": true,
+      "post": true,
+      "put": true,
+      "delete": true
+    },
+    "chats": {
+      "get": true,
+      "post": true,
+      "put": true,
+      "delete": true
+    },
+    "messeges": {
+      "get": true,
+      "post": true,
+      "put": true,
+      "delete": true
+    }
+  }
+}

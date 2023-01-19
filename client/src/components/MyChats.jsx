@@ -7,17 +7,18 @@ import { getSender } from "../config/ChatLogics";
 import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./GroupChatModal";
 import { Button } from "@chakra-ui/react";
-import { ChatState } from "./ChatProvider";
+import {useContext} from "react"
+import { ChatContext } from "./ChatProvider";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
 
-  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const { selectedChat, setSelectedChat, user, chats, setChats } = useContext(ChatContext)
 
   const toast = useToast();
 
   const fetchChats = async () => {
-    // console.log(user._id);
+    console.log(user._id);
     try {
       const config = {
         headers: {

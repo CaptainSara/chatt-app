@@ -15,7 +15,8 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
-import { ChatState } from "./ChatProvider";
+import {useContext} from "react"
+import { ChatContext } from "./ChatProvider";
 import UserBadgeItem from "./UserBadgeItem";
 import UserListItem from "./UserListItem";
 
@@ -28,7 +29,7 @@ const GroupChatModal = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  const { user, chats, setChats } = ChatState();
+  const { user, chats, setChats } = useContext(ChatContext);
 
   const handleGroup = (userToAdd) => {
     if (selectedUsers.includes(userToAdd)) {
