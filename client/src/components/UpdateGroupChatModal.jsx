@@ -18,10 +18,10 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
-import { ChatContext } from "./ChatProvider";
+import { ChatState } from "./ChatProvider";
 import UserBadgeItem from "./UserBadgeItem";
 import UserListItem from "./UserListItem";
-import {useContext} from "react"
+//import {useContext} from "react"
 
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
@@ -33,7 +33,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const [renameloading, setRenameLoading] = useState(false);
   const toast = useToast();
 
-  const { selectedChat, setSelectedChat, user } = useContext(ChatContext);
+  const { selectedChat, setSelectedChat, user } = ChatState()
 
   const handleSearch = async (query) => {
     setSearch(query);

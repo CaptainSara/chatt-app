@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FormControl, FormLabel, VStack, Input, InputGroup, InputRightElement, Button } from '@chakra-ui/react'
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   
@@ -13,7 +13,7 @@ export default function Login() {
   const [password, setPassword] = useState()
   const [loading, setLoading] = useState(false);
 
-  const navigateTo = useHistory();
+  const navigateTo = useNavigate();
 
   const submitHandler = async () => {
     setLoading(true);

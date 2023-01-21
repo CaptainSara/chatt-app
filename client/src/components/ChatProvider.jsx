@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useHistory} from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate} from "react-router-dom";
 
-export const ChatContext = createContext();
+const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState();
@@ -9,26 +10,17 @@ const ChatProvider = ({ children }) => {
   const [notification, setNotification] = useState([]);
   const [chats, setChats] = useState();
 
-  const navigateTo = useHistory();
+  const navigate = useNavigate();
 
 
-  console.log("Values set initially in the ChatContext",
-        selectedChat,
-        setSelectedChat,
-        user,
-        setUser,
-        notification,
-        setNotification,
-        chats,
-        setChats)
 
   useEffect(() => {
-    //const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    //setUser(userInfo);
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    setUser(userInfo);
 
-    //if (!userInfo) navigateTo.push("/");
+    if (!userInfo) { navigate("/") }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history]);
+  }, [navigate]);
 
   return (
     
@@ -49,5 +41,10 @@ const ChatProvider = ({ children }) => {
       
   );
 };
+
+export const ChatState = () => {
+  return useContext(ChatContext)
+}
+
 
 export default ChatProvider;
