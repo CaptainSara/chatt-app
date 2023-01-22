@@ -5,6 +5,7 @@ import { ChatState } from './ChatProvider'
 import UserListItem from './UserListItem'
 import UserBadgeItem from './UserBadgeItem'
 
+
 const GroupChatModal = ({ children }) => {
   
   const { isOpen, onOpen, onClose } = useDisclosure()
