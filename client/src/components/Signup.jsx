@@ -33,6 +33,49 @@ export default function Signup() {
       setPicLoading(false)
       return
     }
+
+    
+    let letterUp = /[A-Z]/
+    let sign = /[@$!%*?&]/
+    
+
+    if (password.length < 8 || !letterUp.test(password) || !sign.test(password)) {
+      if (password.length < 8) {
+        toast({
+          title: "Password must containg more than 8 letter",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        })
+        return
+      } 
+
+      if (!letterUp.test(password)) {
+        toast({
+          title: "Password must containg a big letter",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        })
+        return
+      } 
+
+      if (!sign.test(password)) {
+        toast({
+          title: "Password must containg a sign",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        })
+        return
+      } 
+      
+    }
+
+
     if (password !== confirmpassword) {
       toast({
         title: "Passwords Do Not Match",
