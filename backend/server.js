@@ -5,6 +5,7 @@ const chatRoutes = require('./routes/chatRoutes')
 const messageRoutes = require('./routes/messageRoutes')
 const { notFound, errorHandler } = require('./middleware/errorMiddelware')
 const path = require("path");
+const acl = require("acl")
 
 
 const app = express()
@@ -89,3 +90,22 @@ io.on("connection", (socket) => {
    });
 });
 
+//ACL
+function setRoles() {
+  acl.allow([
+    {
+      roles: "user",
+      allows: [
+        { resources: '/user', permissions: 'create' },
+      ]
+    },
+    {
+      roles: "admin",
+      allows: [
+        { resources: '/user', permissions: '*' },
+        { resources: '/chats', permissions: ['get', 'delete'] },
+        { resources: '/message', permissions: ['post', 'delete'] }
+      ]
+    }
+  ])  
+}

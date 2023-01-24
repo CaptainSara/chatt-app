@@ -9,6 +9,7 @@
   "author": "Sara Iqbal",
   "license": "ISC",
   "dependencies": {
+    "acl": "^0.4.11",
     "axios": "^1.2.1",
     "bcryptjs": "^2.4.3",
     "color": "^4.2.3",
