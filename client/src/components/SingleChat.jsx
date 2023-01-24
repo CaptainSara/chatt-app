@@ -11,7 +11,7 @@ import ScrollableChat from './ScrollableChat'
 import io from 'socket.io-client'
 
 const ENDPOINT = "http://localhost:5000"
-let socket, selectedChatCompare
+var socket, selectedChatCompare
 
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -20,19 +20,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [newMessage, setNewMessage] = useState();
+  const [newMessage, setNewMessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const toast = useToast();
-
-   useEffect(() => {
-    socket = io(ENDPOINT)
-    socket.emit("setup", user)
-     socket.on("connected", () => setSocketConnected(true))
-     socket.on('typing', () => setIsTyping(true))
-     socket.on('stop typing', () => setIsTyping(false))
-  }, [])
 
   const fetchMessages = async () => {
     if (!selectedChat) return
@@ -43,6 +35,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             Authorization: `Bearer ${user.token}`,
           }, 
       }
+
+      setLoading(true)
       const { data } = await axios.get(`/api/message/${selectedChat._id}`, config)
       
       setMessages(data)
@@ -62,24 +56,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }
 
 
-
-  useEffect(() => {
-    fetchMessages()
-    selectedChatCompare=selectedChat
-  }, [selectedChat])
-
-  useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
-      if (!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id) {
-        //notifikation
-      } else {
-        setMessages([...messages, newMessageRecieved])
-      }    
-    })
-  })
-
-  const sendMessage = async (event) => { 
-    if (event.key === "Enter" && newMessage)
+  const sendMessage = async (event) => {
+    if (event.key === "Enter" && newMessage) {
       socket.emit('stop typing', selectedChat._id)
       try {
         const config = {
@@ -107,7 +85,32 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           position: "bottom",
         });
       }
+    }
   }
+
+  useEffect(() => {
+    socket = io(ENDPOINT)
+    socket.emit("setup", user)
+     socket.on("connected", () => setSocketConnected(true))
+     socket.on('typing', () => setIsTyping(true))
+     socket.on('stop typing', () => setIsTyping(false))
+  }, [])
+
+
+  useEffect(() => {
+    fetchMessages()
+    selectedChatCompare=selectedChat
+  }, [selectedChat])
+
+  useEffect(() => {
+    socket.on("message recieved", (newMessageRecieved) => {
+      if (!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id) {
+        //notifikation
+      } else {
+        setMessages([...messages, newMessageRecieved])
+      }    
+    })
+  })
 
  
   

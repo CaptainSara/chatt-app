@@ -1,11 +1,10 @@
 const express = require('express')
-const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 const userRoutes = require('./routes/userRoutes')
 const chatRoutes = require('./routes/chatRoutes')
 const messageRoutes = require('./routes/messageRoutes')
 const { notFound, errorHandler } = require('./middleware/errorMiddelware')
-const path = require('path')
+const path = require("path");
 
 
 const app = express()
@@ -13,29 +12,28 @@ require("./parseEnv.js");
 //dotenv.config()
 connectDB()
 
-app.use(express.json()) //Accept the JSON data fom fronend
+app.use(express.json()) //Accept the JSON data fom frontend
 
-app.get('/', (req, res) => {
+// serve dist folder in production mode
+app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use((req, res, next) => {
+  if (req.url.indexOf("/api") !== 0 && !req.url.includes(".")) {
+    // it is a frontend / react router route so send index.html
+    res.set("Content-Type", "text/html");
+    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  }
+  else {
+    next();
+  }
+});
+
+/* app.get('/', (req, res) => {
   res.send("API is running")
-})
+}) */
 
 app.use('/api/user', userRoutes)
 app.use('/api/chat', chatRoutes)
 app.use('/api/message', messageRoutes)
-
-const __dirname1 = path.resolve();
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname1, "/frontend/build")));
-
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
-  );
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running..");
-  });
-}
 
 
 // Error Handling middlewares

@@ -1,7 +1,8 @@
 {
   "user": {
     "users": {
-      "get": true
+      "get": true,
+      "post": true
     },
     "login": {
       "get": true,
