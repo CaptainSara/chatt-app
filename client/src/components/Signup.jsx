@@ -113,7 +113,7 @@ export default function Signup() {
       })
       localStorage.setItem("userInfo", JSON.stringify(data))
       setPicLoading(false);
-      navigateTo.push("/chats");
+      navigateTo("/chats");
     } catch (error) {
       toast({
         title: "Error Occured!",

@@ -53,7 +53,7 @@ export default function Login() {
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
-      navigateTo.push("/chats");
+      navigateTo("/chats");
     } catch (error) {
       toast({
         title: "Error Occured!",
