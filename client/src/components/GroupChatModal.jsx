@@ -19,25 +19,23 @@ const GroupChatModal = ({ children }) => {
 
   const { user, chats, setChats } = ChatState()
   
-  const handleSearch  = async (query) => {
-    setSearch(query)
+  const handleSearch = async (query) => {
+    setSearch(query);
     if (!query) {
-      return
+      return;
     }
 
     try {
-      setLoading(true)
-
+      setLoading(true);
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
-      }
-
-      const { data } = await axios.get(`/api/user?search${search}`, config)
-    
-      setLoading(false)
-      setSearchResult(data)
+      };
+      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      console.log(data);
+      setLoading(false);
+      setSearchResult(data);
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -47,6 +45,7 @@ const GroupChatModal = ({ children }) => {
         isClosable: true,
         position: "bottom-left",
       });
+      setLoading(false);
     }
   }
 
